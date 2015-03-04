@@ -1,6 +1,3 @@
-GotowTutorial-Unity5-WheelColliderSource
-========================================
-
 This proof-of-concept combines the [Open Source Wheel Collider](http://wiki.unity3d.com/index.php?title=WheelColliderSource) with my C# conversion of Gotow's Unity Car Tutorial from 2009.
 
 Physics parameters will need to be tweaked
