@@ -335,7 +335,7 @@ public class WheelColliderSource : MonoBehaviour
         m_dummyWheel.localEulerAngles = new Vector3(0, m_wheelSteerAngle, 0);
 
         //Calculate the wheel's rotation given it's angular velocity
-        m_wheelRotationAngle += m_wheelAngularVelocity * Time.deltaTime;
+		m_wheelRotationAngle += m_wheelAngularVelocity * Time.fixedDeltaTime;
 
         //Set the rotation and steer angle of the wheel model
         this.transform.localEulerAngles = new Vector3(m_wheelRotationAngle, m_wheelSteerAngle, 0);
@@ -347,20 +347,20 @@ public class WheelColliderSource : MonoBehaviour
         if (m_isGrounded && m_wheelMotorTorque == 0)
         {
             //Apply angular force to wheel from slip
-            m_wheelAngularVelocity -= Mathf.Sign(m_forwardSlip) * m_forwardFriction.Evaluate(m_forwardSlip) / (Mathf.PI  * 2.0f * m_wheelRadius) / m_wheelMass * Time.deltaTime;
+            m_wheelAngularVelocity -= Mathf.Sign(m_forwardSlip) * m_forwardFriction.Evaluate(m_forwardSlip) / (Mathf.PI  * 2.0f * m_wheelRadius) / m_wheelMass * Time.fixedDeltaTime;
         }
 
         //Apply motor torque
-        m_wheelAngularVelocity += m_wheelMotorTorque / m_wheelRadius / m_wheelMass * Time.deltaTime;
+        m_wheelAngularVelocity += m_wheelMotorTorque / m_wheelRadius / m_wheelMass * Time.fixedDeltaTime;
         
         //Apply brake torque
-        m_wheelAngularVelocity -= Mathf.Sign(m_wheelAngularVelocity) * Mathf.Min(Mathf.Abs(m_wheelAngularVelocity), m_wheelBrakeTorque * m_wheelRadius / m_wheelMass * Time.deltaTime);
+        m_wheelAngularVelocity -= Mathf.Sign(m_wheelAngularVelocity) * Mathf.Min(Mathf.Abs(m_wheelAngularVelocity), m_wheelBrakeTorque * m_wheelRadius / m_wheelMass * Time.fixedDeltaTime);
     }
 
     private void CalculateSlips()
     {
         //Calculate the wheel's linear velocity
-        Vector3 velocity = (m_dummyWheel.position - m_prevPosition) / Time.deltaTime;
+        Vector3 velocity = (m_dummyWheel.position - m_prevPosition) / Time.fixedDeltaTime;
         m_prevPosition = m_dummyWheel.position;
 
         //Store the forward and sideways direction to improve performance
@@ -390,6 +390,6 @@ public class WheelColliderSource : MonoBehaviour
         m_totalForce += m_dummyWheel.up * (m_suspensionCompression - m_suspensionDistance * (m_suspensionSpring.TargetPosition)) * m_suspensionSpring.Spring;
 
         //Spring damping force
-        m_totalForce += m_dummyWheel.up * (m_suspensionCompression - m_suspensionCompressionPrev) / Time.deltaTime * m_suspensionSpring.Damper;
+        m_totalForce += m_dummyWheel.up * (m_suspensionCompression - m_suspensionCompressionPrev) / Time.fixedDeltaTime * m_suspensionSpring.Damper;
     }
 }
