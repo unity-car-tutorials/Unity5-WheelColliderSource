@@ -384,7 +384,7 @@ public class WheelColliderSource : MonoBehaviour
         m_totalForce = m_dummyWheel.forward * Mathf.Sign(m_forwardSlip) * m_forwardFriction.Evaluate(m_forwardSlip);
 
         //Lateral slip force
-        m_totalForce -= m_dummyWheel.right * Mathf.Sign(m_sidewaysSlip) * m_forwardFriction.Evaluate(m_sidewaysSlip);
+        m_totalForce -= m_dummyWheel.right * Mathf.Sign(m_sidewaysSlip) * m_sidewaysFriction.Evaluate(m_sidewaysSlip);
 
         //Spring force
         m_totalForce += m_dummyWheel.up * (m_suspensionCompression - m_suspensionDistance * (m_suspensionSpring.TargetPosition)) * m_suspensionSpring.Spring;

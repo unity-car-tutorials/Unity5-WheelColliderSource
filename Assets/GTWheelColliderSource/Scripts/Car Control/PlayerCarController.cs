@@ -63,7 +63,7 @@ public class PlayerCarController : MonoBehaviour
 			WheelColliderSource wheel = wheels[i];
 			JointSpringSource spring = wheel.SuspensionSpring;
 
-			spring.Spring = 50000;
+			spring.Spring = 40000;
 			spring.Damper = 10000;
 			wheel.SuspensionSpring = spring;
 
@@ -76,14 +76,14 @@ public class PlayerCarController : MonoBehaviour
 			wheel.ForwardFriction.ExtremumValue = 6000f;
 			wheel.ForwardFriction.AsymptoteSlip = 4f;
 			wheel.ForwardFriction.AsymptoteValue = 6000f;
-			wheel.ForwardFriction.Stiffness = 3;
+			wheel.ForwardFriction.Stiffness = 4;
 			
 			wheel.SidewaysFriction = new WheelFrictionCurveSource();
 			wheel.SidewaysFriction.ExtremumSlip = 3f;
 			wheel.SidewaysFriction.ExtremumValue = 4000f;
 			wheel.SidewaysFriction.AsymptoteSlip = 4f;
 			wheel.SidewaysFriction.AsymptoteValue = 4000f;
-			wheel.SidewaysFriction.Stiffness = 5;			
+			wheel.SidewaysFriction.Stiffness = 4;			
 		}
 
 
@@ -95,8 +95,8 @@ public class PlayerCarController : MonoBehaviour
 		
 		if (debugText)
 		{
-			debugText.text =	" FL: " + wheels[0].RPM.ToString("0000") + " FR: " + wheels[1].RPM.ToString("0000") +
-								" RL: " + wheels[2].RPM.ToString("0000") + " FR: " + wheels[3].RPM.ToString("0000") +
+			debugText.text =	" Gear: " + CurrentGear + " FL: " + wheels[0].RPM.ToString("0000") + " FR: " + wheels[1].RPM.ToString("0000") +
+								" RL: " + wheels[2].RPM.ToString("0000") + " RR: " + wheels[3].RPM.ToString("0000") +
 								" Engine RPM : " + EngineRPM.ToString("00000") + " Speed: " + (rigidBody.velocity.magnitude * 2.2f).ToString("000");
 	
 		}
